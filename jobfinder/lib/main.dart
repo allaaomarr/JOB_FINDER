@@ -23,6 +23,7 @@ import 'package:sizer/sizer.dart';
 import 'Controller/Provider/firebase_provider.dart';
 import 'Controller/Provider/home_provider.dart';
 import 'Controller/Provider/login_provider.dart';
+import 'Controller/Provider/profile_provider.dart';
 import 'Controller/Provider/register_provider.dart';
 import 'Controller/Provider/search_provider.dart';
 import 'View/apply_job/apply_job.dart';
@@ -56,7 +57,7 @@ void main() async {
                ChangeNotifierProvider(create: (context)=>HomeProvider()),
                ChangeNotifierProvider(create: (context)=> SearchProvider()),
                ChangeNotifierProvider(create: (context)=> SavedJobsProvider()),
-
+               ChangeNotifierProvider(create: (context)=> ProfileProvider()),
              ],
 
 

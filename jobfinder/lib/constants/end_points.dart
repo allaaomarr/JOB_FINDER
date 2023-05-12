@@ -1,4 +1,5 @@
 const baseUrl = 'http://164.92.246.77/api/';
+const profileinfo = 'user/profile/show/';
 const loginEndPoint = 'auth/login';
 const registerEndPoint = 'auth/register';
 const setup = 'user/profile/';

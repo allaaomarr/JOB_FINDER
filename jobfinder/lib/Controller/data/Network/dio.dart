@@ -9,6 +9,7 @@ import 'package:jobfinder/Model/suggested_jobs_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Model/jobs_model.dart';
+import '../../../Model/profile_model.dart';
 import '../../../Model/search_model.dart';
 import '../../../constants/end_points.dart';
 ProgressCallback? onSendProgress;
@@ -134,45 +135,85 @@ Future<List<SearchModel>> GetDataSearchfilter(String title,String location,Strin
   }
 
 }
- GetdataFunction(String url) async {
-   final dio = Dio();
-   Response response;
-   SharedPreferences prefs = await SharedPreferences.getInstance();
-   String? token = prefs.getString('token').toString();
-   int? user_id = prefs.getInt('user_id');
-   try {
-     response = await dio.get(
-       '$url', options: Options(
-         receiveDataWhenStatusError: true,
 
-         receiveTimeout: Duration(seconds: 60),
-         followRedirects: false,
+GetdataFunction(String url) async {
+  final dio = Dio();
+  Response response;
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? token = prefs.getString('token').toString();
+  int? user_id = prefs.getInt('user_id');
+  try {
+    response = await dio.get(
+      '$url', options: Options(
+        receiveDataWhenStatusError: true,
 
-         validateStatus: (status) => true,
-         headers: {
-           // "Accept": "application/json",
-           'Authorization': 'Bearer ${token}',
-         }
-     ),
-     );
-     print(response.data['data'].toString());
-     print(response.data['data'].length);
-     var data = List<JobsModel>.from(
-         response.data['data'].map((element) =>
-             JobsModel.fromJson(element)));
-     // print(data.runtimeType);
-     print(data[1].name);
-     print(data[1]);
-     return data;
-     // The below request is the same as above.
-   }
-   on DioError catch (ex) {
-     if (ex.type == DioErrorType.connectionTimeout) {
-       throw Exception("Connection  Timeout Exception");
-     }
-     throw Exception(ex.message);
-   }
- }
+        receiveTimeout: Duration(seconds: 60),
+        followRedirects: false,
+
+        validateStatus: (status) => true,
+        headers: {
+          // "Accept": "application/json",
+          'Authorization': 'Bearer ${token}',
+        }
+    ),
+    );
+    print(response.data['data'].toString());
+    print(response.data['data'].length);
+    var data = List<JobsModel>.from(
+        response.data['data'].map((element) =>
+            JobsModel.fromJson(element)));
+    // print(data.runtimeType);
+    print(data[1].name);
+    print(data[1]);
+    return data;
+    // The below request is the same as above.
+  }
+  on DioError catch (ex) {
+    if (ex.type == DioErrorType.connectionTimeout) {
+      throw Exception("Connection  Timeout Exception");
+    }
+    throw Exception(ex.message);
+  }
+}
+GetProfileData() async {
+  final dio = Dio();
+  Response response;
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? token = prefs.getString('token').toString();
+  int? user_id = prefs.getInt('user_id');
+  try {
+    response = await dio.get(
+      baseUrl+profileinfo+'$user_id', options: Options(
+        receiveDataWhenStatusError: true,
+
+        receiveTimeout: Duration(seconds: 60),
+        followRedirects: false,
+
+        validateStatus: (status) => true,
+        headers: {
+          // "Accept": "application/json",
+          'Authorization': 'Bearer ${token}',
+        }
+    ),
+    );
+    print('data is'+response.data['data'].toString());
+    print(response.data['data'].length);
+   var data =
+            ProfileModel.fromJson(response.data['data']);
+     print(data.runtimeType);
+    print(data.name);
+    print(data.work);
+    print(data.details);
+    return data;
+    // The below request is the same as above.
+  }
+  on DioError catch (ex) {
+    if (ex.type == DioErrorType.connectionTimeout) {
+      throw Exception("Connection  Timeout Exception");
+    }
+    throw Exception(ex.message);
+  }
+}
  PostDataFavorite(int job_id, ) async {
     var dio = Dio();
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -705,4 +746,46 @@ return data;
     }
     throw Exception(ex.message);
   }
+}
+EditDatadetails(int job_id, ) async {
+  var dio = Dio();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? token = prefs.getString('token').toString();
+  int? user_id = prefs.getInt('user_id');
+  try {
+    var response = await dio.post(
+      baseUrl+ 'favorites', options: Options(
+        receiveDataWhenStatusError: true,
+
+        receiveTimeout: Duration(seconds: 60),
+        followRedirects: false,
+
+        validateStatus: (status) => true,
+        headers: {
+          // "Accept": "application/json",
+          'Authorization': 'Bearer ${token}',
+        }
+    ),
+      data: {'user_id': user_id, 'job_id': job_id,},
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+    print(response.statusCode);
+    print(user_id);
+    print(job_id);
+    if (response.statusCode == 200) {
+
+      print(token);
+      print(user_id);
+      print(job_id);
+      print(response.statusCode);
+      print(response.data);
+    }
+  } on DioError catch (ex) {
+    if (ex.type == DioErrorType.connectionTimeout) {
+      throw Exception("Connection  Timeout Exception");
+    }
+    throw Exception(ex.message);
+  }
+
 }

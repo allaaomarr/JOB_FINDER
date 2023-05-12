@@ -72,7 +72,8 @@ class _onboardingState extends State<onboarding> {
                 // Either Provide onSkip Callback or skipButton Widget to handle skip state
                skipButton: TextButton(
                   onPressed: () {
-                    // print('skipButton pressed');
+                    Navigator.push(context, MaterialPageRoute(builder: (
+                        context) => register_page(),));
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(6.0),
