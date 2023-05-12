@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">jobfinder</string>
+<string name="facebook_app_id">1913017762373722</string>
+<string name="fb_login_protocol_scheme">fb1913017762373722</string>
+<string name="facebook_client_token">eca7fbd9fb07fbbfc40a6c68d0a44c32</string>
+
+</resources>
