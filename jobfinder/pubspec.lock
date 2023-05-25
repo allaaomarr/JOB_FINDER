@@ -17,6 +17,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
+  alert_dialog:
+    dependency: "direct main"
+    description:
+      name: alert_dialog
+      sha256: f2f6fb192af84f8a0a53fa31bacf8aba234d9609acf3877e5850d1715382b97b
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   archive:
     dependency: transitive
     description:

@@ -47,7 +47,7 @@ class _upload_file_widgetState extends State<upload_file_widget> {
     setState(() {
       dirPath = path;
       print(dirPath);
-
+      PostDataPortifolio( dirPath);
     });
   }
   @override

@@ -14,3 +14,4 @@ const postdataportfolio = 'user/profile/portofolios/';
 const editprofile = 'user/profile/edit/';
 const addlanguage = 'user/profile/language/';
 const getchat = 'chat';
+const about = 'user/profile/personaldetails/';

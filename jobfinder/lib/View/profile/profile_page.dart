@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jobfinder/Controller/data/Network/dio.dart';
 import 'package:jobfinder/View/complete_profile/complete_profile.dart';
 import 'package:jobfinder/View/profile/General/edit_profile.dart';
 import 'package:jobfinder/View/profile/General/language.dart';
@@ -30,7 +31,7 @@ class profile_page extends StatefulWidget {
   @override
   State<profile_page> createState() => _profile_pageState();
 }
-
+var about_controller = TextEditingController();
 String?  username;
 class _profile_pageState extends State<profile_page> {
   @override
@@ -164,7 +165,68 @@ class _profile_pageState extends State<profile_page> {
                             color: AppTheme.unclickedColor),
                       ),
                       Spacer(),
-                      TextButton(onPressed: () {}, child: Text(
+                      TextButton(onPressed: () {
+                        var alert = AlertDialog(
+                          title: new Text("About"),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                          content: Column(
+                            children: <Widget>[
+                              new Expanded(
+                                child: new TextField(
+
+                                  controller: about_controller,
+                                  autofocus: true,
+                                  decoration: InputDecoration(
+                                    labelText: about_controller.text,
+                                    labelStyle:TextStyle(fontSize:20,color: AppTheme.PrimaryColor,),
+                                    hintText: "About",
+                                    //    icon:  new Icon(Icons.update,color: Colors.deepOrange,),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: AppTheme.PrimaryColor),
+                                      borderRadius:BorderRadius.circular(20),
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                            ],
+                          ),
+                          actions: <Widget>[
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+
+                                primary: AppTheme.PrimaryColor,
+                              ),
+                              onPressed: () async {
+
+                                //redrawing scree
+                                setState(() {
+                                 putabout(about_controller.text);
+                                });
+                                //updating note
+
+
+
+                                Navigator.pop(context);
+                              },
+                              child: new Text("Edit"),
+                            ),
+                            new ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+
+                                primary: AppTheme.PrimaryColor,
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              child: new Text("Cancel"),
+                            ),
+                          ],
+                        );
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return alert;
+                            });
+                      }, child: Text(
                           AppStrings.edit)),
                     ],
                   ),
@@ -323,3 +385,4 @@ Widget others( String title )
       ),
     );
 }
+

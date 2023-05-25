@@ -65,6 +65,7 @@ dependencies:
   modal_bottom_sheet: ^3.0.0-pre
   fluttertoast: ^8.2.1
   linear_step_indicator:
+  alert_dialog:
 dev_dependencies:
   flutter_test:
     sdk: flutter

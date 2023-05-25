@@ -470,11 +470,12 @@ putDatalanguage(language) async {
   }
 
 }
-PostDataPortifolio( cv_file,String name ) async {
+PostDataPortifolio( cv_file ) async {
   var dio = Dio();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String? token = prefs.getString('token').toString();
   int? user_id = prefs.getInt('user_id');
+  String? name = prefs.getString('name');
   try {
     var response = await dio.post(
       baseUrl+postdataportfolio+'$user_id', options: Options(
@@ -783,6 +784,63 @@ EditDatadetails(int job_id, ) async {
     }
   } on DioError catch (ex) {
     if (ex.type == DioErrorType.connectionTimeout) {
+      throw Exception("Connection  Timeout Exception");
+    }
+    throw Exception(ex.message);
+  }
+
+}
+putabout(String about
+    ) async {
+  var dio = Dio();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? token = prefs.getString('token').toString();
+  int? user_id = prefs.getInt('user_id');
+  print("saved tokenputdata${prefs.getString('token')}");
+print(user_id);
+  try
+  {
+
+    print("saved tokenputdata${prefs.getString('token')}");
+
+
+    final Response response = await dio.put(
+    'http://164.92.246.77/api/user/profile/personaldetails/$user_id',
+      options: Options(
+          receiveDataWhenStatusError: true,
+
+          receiveTimeout: Duration(seconds: 60),
+          followRedirects: false,
+
+          validateStatus: (status) => true,
+          headers :{
+            // "Accept": "application/json",
+            'Authorization': 'Bearer ${token}',
+          }
+      ),
+      data:  {'personal_detailes': about,},
+
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+    Fluttertoast.showToast(
+        msg: "Saved Successfully",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+    print(about);
+
+    print(response.statusCode);
+    print(response.data.toString());
+
+  }
+
+  on DioError  catch (ex) {
+    if(ex.type == DioErrorType.connectionTimeout){
       throw Exception("Connection  Timeout Exception");
     }
     throw Exception(ex.message);
