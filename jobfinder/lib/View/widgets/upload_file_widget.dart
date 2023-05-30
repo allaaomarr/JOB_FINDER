@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -32,7 +34,23 @@ class _upload_file_widgetState extends State<upload_file_widget> {
     rootPath = Directory('/storage/emulated/0/');
     setState(() {});
   }
-  Future<void> _pickDir(BuildContext context) async
+  String? filePath;
+
+  pickFile() async {
+    FilePickerResult? result = await FilePicker.platform
+        .pickFiles(type: FileType.custom, allowedExtensions: ['pdf']);
+    File file;
+    if (result != null) {
+      file = File(result.files.single.path!);
+      filePath = file.path;
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('cv',filePath!);
+      print(filePath);
+      PostDataPortifolio(filePath!);
+    //  PostDataapply(filePath!, 'name_controller.text', 'email_controller.text', 'phone_controller.text', 'worktype', "non", 'widget.jobid', );
+    }
+  }
+/*  Future<void> _pickDir(BuildContext context) async
   {
     String? path = await FilesystemPicker.open(
       title: 'Select folder',
@@ -52,7 +70,7 @@ class _upload_file_widgetState extends State<upload_file_widget> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('cv',dirPath!);
     });
-  }
+  }*/
   @override
   Widget build(BuildContext context) {
     return   DottedBorder(
@@ -81,7 +99,10 @@ borderRadius: BorderRadiusDirectional.circular(10),
                 success_widget(header1: AppStrings.uploadfile, header2: AppStrings.filesize, image: AppImages.uploadfile,headersize1: 16,headersize2: 11,sizebox1: 10,sizebox2: 10,),
                 SizedBox(height: 25,),
             InkWell(
-              onTap: (rootPath != null) ? () => _pickDir(context) : null,
+              onTap:(){
+                pickFile();
+              },
+              // (rootPath != null) ? () => _pickDir(context) : null,
 
               child: Container(
                 width: 290,
@@ -117,4 +138,3 @@ borderRadius: BorderRadiusDirectional.circular(10),
     );
   }
 }
-/// TODO FILE UPLOAD  add to database

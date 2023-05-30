@@ -72,8 +72,9 @@ arrowback_title(title: AppStrings.AppliedJob),
 
           Expanded(
               child: ListView.builder(
-                shrinkWrap: true,
+               // shrinkWrap: true,
                 itemCount: 3,
+
                 itemBuilder: (context, index) {
                   return
                     InkWell(
@@ -97,7 +98,7 @@ Navigator.push(context,MaterialPageRoute(builder: (context) => complete_apply(),
                                     children: [
                                       Padding(
                                         padding:
-                                        const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                                        const EdgeInsets.fromLTRB(0, 0, 0, 0),
                                         child: Image.asset(
                                           AppImages.twitter,
                                         ),
@@ -132,14 +133,14 @@ Navigator.push(context,MaterialPageRoute(builder: (context) => complete_apply(),
                                       Spacer(),
 
                                       Text("Posted 2 days ago",style: TextStyle(color: AppTheme.unclickedColor, fontWeight: FontWeight.w500,fontSize: 10.sp),textAlign: TextAlign.end),
-                                    ///TODO  stepper
+
 
              
                                     ],
                                   ),
 
                                    // flex:2,
-                               /*    Container(
+                            /*   Container(
 
 
                                       decoration: BoxDecoration(
@@ -150,10 +151,12 @@ Navigator.push(context,MaterialPageRoute(builder: (context) => complete_apply(),
 
                       ),
 
-                                      child:    FullLinearStepIndicator(
+                                      child:   /* FullLinearStepIndicator(
                                         steps: 3,
-                                        lineHeight: 1.5,
-iconSize: 5,nodeSize: 0,
+                                        lineHeight: 1,
+verticalPadding: 0,
+
+iconSize: 4,nodeSize: 0,
                                         activeNodeColor: Colors.brown,
                                         inActiveNodeColor: const Color(0xffd1d5d8),
                                         activeLineColor: Colors.brown,
@@ -167,9 +170,9 @@ iconSize: 5,nodeSize: 0,
                                           return Future.value(true);
                                         },
                                       ),
-
-               /*  EasyStepper(
-                                        activeStep: activeStep,
+*/
+                 EasyStepper(
+                                        activeStep: _currentStep,
 
                                         lineLength: 20,
                                         steppingEnabled: true,
@@ -205,12 +208,12 @@ iconSize: 5,nodeSize: 0,
 
                                         ],
                                         onStepReached: (index) {
-                                          activeStep = index;
+                                          _currentStep = index;
                                           setState(() { //for (int i = 0; i < _selectedstep.length; i++) {
                                             //  _selectedstep[i] = i == index;}
 
                                           });},
-                                      ),*/
+                                      ),
 
                                   ),*/
                                //   SizedBox(width: 10,),

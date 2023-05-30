@@ -1,4 +1,5 @@
 
+
 import 'package:dio/dio.dart';
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -850,15 +851,17 @@ putDatalanguage(language) async {
   }
 
 }
-PostDataapply(cv_file, name, email, mobile, work_type, other_file, job_id, ) async {
+PostDataapply(String cv_file, name, email, mobile, work_type, other_file, job_id, ) async {
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String? token = prefs.getString('token').toString();
   int? user_id = prefs.getInt('user_id');
+  print(user_id);
+
   var dio = Dio();
   try {
     var response = await dio.post(
-      baseUrl+apply, options: Options(
+        'http://167.71.79.133/api/apply', options: Options(
         receiveDataWhenStatusError: true,
 
         receiveTimeout: Duration(seconds: 60),
@@ -871,21 +874,29 @@ PostDataapply(cv_file, name, email, mobile, work_type, other_file, job_id, ) asy
         }
     ),
       data: {
-        'cv_file':cv_file,
+        //'cv_file': cv_file,
         'name':name,
         'email':email,
         'mobile':mobile,
         'work_type':work_type,
         'other_file':other_file,
         'job_id':job_id,
-        'user_id':user_id
+        'user_id':user_id,
+
     },
 
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
     print(response.statusCode);
-
+print(cv_file );
+    print(token );
+print(name);
+print("user id is $user_id");
+print(other_file);
+print(mobile);
+print(email);
+print(response.data);
     print(job_id);
     if (response.statusCode == 200) {
 

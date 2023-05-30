@@ -36,7 +36,7 @@ class _login_securityState extends State<login_security> {
                   onTap: (){
             Navigator.push(context, MaterialPageRoute(builder: (context) =>email_address(),));
             },
-              child:    settings(AppStrings.Emailaddress,'rafifdian12@gmail.com'),
+              child:    settings(AppStrings.Emailaddress,''),
                   ),
         InkWell(
           onTap: (){

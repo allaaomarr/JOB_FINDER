@@ -37,7 +37,7 @@ var name_controller = TextEditingController();
 var email_controller = TextEditingController();
 var phone_controller = TextEditingController();
 var worktype_controller = TextEditingController();
-/// TODO next step using next button
+
 class _apply_jobState extends State<apply_job> {
   @override
   Widget build(BuildContext context) {
@@ -95,29 +95,21 @@ finishIcon: Icon(CupertinoIcons.check_mark),
                 _selectedstep[0] ? step1() : _selectedstep[1] ? step2(): step3(),
 
 
-InkWell(
-  onTap: () {
-    // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => apply_success()) );
-    int i = 0;
-    if (i < 3) {
-      _selectedstep[i];
-      i++;
-    }
-
-  },
 
 
 
 
 
-        child: InkWell(
+
+        InkWell(
           onTap: () async {
             SharedPreferences prefs = await SharedPreferences.getInstance();
           String? cv =  prefs.getString('cv');
 
-          PostDataapply('download (10).jpg', "name_controller.text", "email_controller.text", "mobile_controller.text", "worktype", "non", widget.jobid, );
+          PostDataapply(cv!, name_controller.text, email_controller.text, phone_controller.text, worktype, "non", widget.jobid, );
+            Navigator.push(context, MaterialPageRoute(builder: (context) => apply_success(),));
           },
-            child: main_button(label: _selectedstep[2] ? "Submit": AppStrings.Next  )))
+            child: _selectedstep[2] ? main_button(label:  "Submit" ): Container()),
 
               ],
             ),

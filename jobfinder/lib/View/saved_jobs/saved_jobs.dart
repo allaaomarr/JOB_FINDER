@@ -26,6 +26,8 @@ class _saved_jobsState extends State<saved_jobs> {
     super.initState();
  WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<SavedJobsProvider>(context,listen: false).save_job();
+      print(Provider.of<SavedJobsProvider>(context,listen: false).save_job());
+
 
  });
 
@@ -113,7 +115,7 @@ class _saved_jobsState extends State<saved_jobs> {
                                                         .delete_job(
                                                         value.savedjobs[index]
                                                             .favid);
-                                                    Provider
+                                                   Provider
                                                         .of<SavedJobsProvider>(
                                                         context, listen: false)
                                                         .save_job();
