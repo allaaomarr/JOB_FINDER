@@ -20,8 +20,10 @@ class inputfield extends StatefulWidget {
   double borderradius;
   Widget? page;
   Function?  function;
+  String? labels;
   inputfield(
       {required this.label,
+        this.labels,
       this.controller,
       this.isPasswordField = false,
       this.isObscureText = false,
@@ -62,7 +64,7 @@ class _inputfieldState extends State<inputfield> {
         // expands: true,
         maxLines: widget.max,
         decoration: InputDecoration(
-         // labelText: widget.label,
+          labelText: widget.labels,
         /*  labelStyle: TextStyle(
             fontSize: 20,
             color: Colors.orange,

@@ -8,6 +8,7 @@ import 'package:jobfinder/View/widgets/success_widget.dart';
 import 'package:jobfinder/styles/app_theme.dart';
 import 'package:jobfinder/utilities/app_images.dart';
 import 'package:jobfinder/utilities/app_strings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import "package:filesystem_picker/filesystem_picker.dart";
 import 'package:permission_handler/permission_handler.dart';
@@ -44,10 +45,12 @@ class _upload_file_widgetState extends State<upload_file_widget> {
       requestPermission: () async =>
       await Permission.storage.request().isGranted,
     );
-    setState(() {
+    setState(() async {
       dirPath = path;
       print(dirPath);
       PostDataPortifolio( dirPath);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('cv',dirPath!);
     });
   }
   @override

@@ -122,14 +122,14 @@ class _experienceState extends State<experience> {
                     SizedBox(height: 50,),
 
                     InkWell(
-                        onTap: () {
+                        onTap: ()async {
                           Provider.of<CompleteProfileProvider>(
                               context, listen: false).Postexperience(
                               position_controller.text,
                               typework_controller.text,
                               compname_controller.text,
                               location_controller.text, start_controller.text);
-                          Provider.of<CompleteProfileProvider>(
+                        await  Provider.of<CompleteProfileProvider>(
                               context, listen: true).getallexperience();
                           Provider
                               .of<CompleteProfileProvider>(

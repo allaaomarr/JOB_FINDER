@@ -21,7 +21,22 @@ class applied_jobs extends StatefulWidget {
   @override
   State<applied_jobs> createState() => _applied_jobsState();
 }
-int activeStep = 0;
+int _currentStep= 0;
+List<Step> _steps = [
+  Step(
+    title: Text('Step 1'),
+    content: Container(
+      // Step 1 content
+    ),
+  ),
+  Step(
+    title: Text('Step 2'),
+    content: Container(
+      // Step 2 content
+    ),
+  ),
+  // Add more steps as needed
+];
 final pageController = PageController();
 int initialPage = 0;
 class _applied_jobsState extends State<applied_jobs> {
@@ -118,6 +133,8 @@ Navigator.push(context,MaterialPageRoute(builder: (context) => complete_apply(),
 
                                       Text("Posted 2 days ago",style: TextStyle(color: AppTheme.unclickedColor, fontWeight: FontWeight.w500,fontSize: 10.sp),textAlign: TextAlign.end),
                                     ///TODO  stepper
+
+             
                                     ],
                                   ),
 

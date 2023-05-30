@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:jobfinder/Controller/data/Network/dio.dart';
-import 'package:jobfinder/View/home_search/home_page.dart';
 import 'package:jobfinder/View/login_page/reset_password.dart';
 import 'package:jobfinder/View/register_pages/register_page.dart';
 import 'package:jobfinder/View/widgets/headers.dart';
 import 'package:jobfinder/utilities/app_strings.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../Controller/Provider/login_provider.dart';
 import '../../styles/app_theme.dart';
 import '../../utilities/app_images.dart';
@@ -24,12 +21,33 @@ class login_page extends StatefulWidget {
   @override
   State<login_page> createState() => _login_pageState();
 }
+
 bool? isCheck = false;
 
 TextEditingController email_controller =TextEditingController();
 TextEditingController password_controller =TextEditingController();
 final GlobalKey<FormState> loginKey = GlobalKey<FormState>();
+String? email;
+String? password;
+
 class _login_pageState extends State<login_page> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp)  {
+getdata();
+
+
+    });
+  }
+  Future<void> getdata()
+  async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    email =  prefs.getString('email');
+    password =  prefs.getString('password');
+    print(email);
+    print(password);
+  }
   final GlobalKey<FormState> loginKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -60,6 +78,7 @@ class _login_pageState extends State<login_page> {
                               .Logindetails),
                           inputfield(
                             label: AppStrings.Email,
+
                             prefixicon: Image.asset(
                                 AppImages.sms),
                             controller: email_controller,
@@ -71,6 +90,7 @@ class _login_pageState extends State<login_page> {
                             },),
                           SizedBox(height: 10,),
                           inputfield(label: AppStrings.Password,
+
                             prefixicon: Image.asset(AppImages.lock),
                             isPasswordField: true,
                             isObscureText: true,
@@ -91,10 +111,13 @@ class _login_pageState extends State<login_page> {
 
                                   ),
 
-                                  onChanged: (bool? value) {
+                                  onChanged: (bool? value) async {
                                     setState(() {
                                       isCheck = value;
                                     });
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('email', email_controller.text);
+                                    prefs.setString('paswword', password_controller.text);
                                   }),
                               Text(AppStrings.rememberme, style: TextStyle(
                                   fontSize: 11.5.sp,

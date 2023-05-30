@@ -23,7 +23,7 @@ bool saved = true;
      return InkWell(
          onTap: (){
            print(widget.job_id);
-           Provider.of<SavedJobsProvider>(context,listen: false).saved_job(widget.job_id);
+        saved ==false ?  Provider.of<SavedJobsProvider>(context,listen: false).saved_job(widget.job_id):Provider.of<SavedJobsProvider>(context,listen: false).delete_job(widget.job_id) ;
 setState(() {
   saved = !saved;
 });

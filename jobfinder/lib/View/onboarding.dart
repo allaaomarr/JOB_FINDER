@@ -46,6 +46,8 @@ class _onboardingState extends State<onboarding> {
                 // Either Provide onSkip Callback or skipButton Widget to handle skip state
                 onSkip: () {
                   // print('skipped');
+                  Navigator.push(context, MaterialPageRoute(builder: (
+                      context) => register_page(),));
                 },
                 // Either Provide onDone Callback or nextButton Widget to handle done state
                 onDone: () {

@@ -3,18 +3,22 @@ import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:jobfinder/Controller/data/Network/dio.dart';
 import 'package:jobfinder/View/apply_job/apply_success.dart';
+import 'package:jobfinder/View/complete_profile/personal_details.dart';
 import 'package:jobfinder/View/widgets/cv_container.dart';
 import 'package:jobfinder/View/widgets/headers.dart';
 import 'package:jobfinder/View/widgets/main_button.dart';
 import 'package:jobfinder/View/widgets/upload_file_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/arrowback_title.dart';
 import '../widgets/inputfield.dart';
 import '../../styles/app_theme.dart';
 import '../../utilities/app_images.dart';
 import '../../utilities/app_strings.dart';
 class apply_job extends StatefulWidget {
-  const apply_job({Key? key}) : super(key: key);
+  int jobid;
+  apply_job(this.jobid) ;
 
   @override
   State<apply_job> createState() => _apply_jobState();
@@ -28,6 +32,11 @@ List <bool> choose =[
   true,
   true,
 ];
+String? worktype;
+var name_controller = TextEditingController();
+var email_controller = TextEditingController();
+var phone_controller = TextEditingController();
+var worktype_controller = TextEditingController();
 /// TODO next step using next button
 class _apply_jobState extends State<apply_job> {
   @override
@@ -56,20 +65,20 @@ class _apply_jobState extends State<apply_job> {
 
                   steps: const [
                     EasyStep(
-                      icon: Icon(CupertinoIcons.number),
+                      icon: Icon(Icons.first_page),
                       title: AppStrings.biodata,
                       activeIcon: Icon(CupertinoIcons.check_mark),
 finishIcon: Icon(CupertinoIcons.check_mark),
 
                     ),
                     EasyStep(
-                      icon: Icon(Icons.category_rounded),
+                      icon: Icon(Icons.work),
                       title: AppStrings.worktype,
                       activeIcon: Icon(CupertinoIcons.check_mark),
                       finishIcon: Icon(CupertinoIcons.check_mark),
                     ),
                     EasyStep(
-                      icon: Icon(Icons.local_shipping_rounded),
+                      icon: Icon(Icons.file_open_rounded),
                       title: AppStrings.uploadportoflio,
                       activeIcon: Icon(CupertinoIcons.check_mark),
                       finishIcon: Icon(CupertinoIcons.check_mark),
@@ -87,12 +96,29 @@ finishIcon: Icon(CupertinoIcons.check_mark),
 
 
 InkWell(
-  onTap: (){
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => apply_success()) );
+  onTap: () {
+    // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => apply_success()) );
+    int i = 0;
+    if (i < 3) {
+      _selectedstep[i];
+      i++;
+    }
 
   },
-    child: main_button(label: AppStrings.Next)),
-/// todo make button next and change to submit
+
+
+
+
+
+        child: InkWell(
+          onTap: () async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+          String? cv =  prefs.getString('cv');
+
+          PostDataapply('download (10).jpg', "name_controller.text", "email_controller.text", "mobile_controller.text", "worktype", "non", widget.jobid, );
+          },
+            child: main_button(label: _selectedstep[2] ? "Submit": AppStrings.Next  )))
+
               ],
             ),
           ),
@@ -134,8 +160,8 @@ InkWell(
                           IconButton(onPressed: (){
 
                             setState(() { choose[index]=!choose[index];
+                               worktype = "Senior UX Designer";
 
-                              ///provider
 
                             });
 
@@ -152,17 +178,8 @@ InkWell(
                             ),
 
                           )
-                          /*    Container(
-                              //  height: 70,
-                              //  width: 50,
-  child:   IconButton(onPressed: (){
 
 
-
-  }, icon: Icon(Icons.radio_button_off)),
-)*/
-                          ///TODO radio button
-                          /// TODO selected color
                         ],
                       ),
                     ),
@@ -196,7 +213,7 @@ InkWell(
                 ],
               )),
           SizedBox(height: 10,) ,
-          inputfield(label: AppStrings.fullname, prefixicon: Image.asset(AppImages.profile)),
+          inputfield(label: AppStrings.fullname, prefixicon: Image.asset(AppImages.profile),controller: name_controller,),
           SizedBox(height: 20,) ,
           Container(
               alignment: AlignmentDirectional.topStart,
@@ -207,7 +224,7 @@ InkWell(
                 ],
               )),
           SizedBox(height: 10,) ,
-          inputfield(label: AppStrings.Email , prefixicon:Image.asset(AppImages.sms) ),
+          inputfield(label: AppStrings.Email , prefixicon:Image.asset(AppImages.sms) ,controller: email_controller,),
           SizedBox(height: 20,) ,
           Container(
               alignment: AlignmentDirectional.topStart,
@@ -219,7 +236,7 @@ InkWell(
               )),
           SizedBox(height: 10,) ,
           IntlPhoneField(
-
+controller: phone_controller,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.zero,
               labelText: AppStrings.phonenumber,

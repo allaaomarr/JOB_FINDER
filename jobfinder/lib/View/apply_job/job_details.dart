@@ -146,7 +146,7 @@ class _job_detailsState extends State<job_details> {
             ),
             InkWell(
               onTap: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>apply_job(),));
+             //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>apply_job(),));
               },
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),

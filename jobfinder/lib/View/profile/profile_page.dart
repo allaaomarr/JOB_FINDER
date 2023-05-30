@@ -58,6 +58,11 @@ class _profile_pageState extends State<profile_page> {
           child: SingleChildScrollView(
             child: Consumer<ProfileProvider>(
         builder: (context, value, child) {
+          if (value.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
           return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

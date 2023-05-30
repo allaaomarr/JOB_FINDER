@@ -5,14 +5,16 @@ import '../../Model/profile_model.dart';
 import '../../Model/saved_jobs_model.dart';
 class ProfileProvider extends ChangeNotifier{
 
-
+  bool isLoading = false;
   late ProfileModel profiledata ;
   showprofile(){
+    isLoading = false;
     GetProfileData().then((value) {
       profiledata = value;
       notifyListeners();
 
     });
+    isLoading = false;
     notifyListeners();
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jobfinder/View/apply_job/apply_job.dart';
 import 'package:jobfinder/View/home_search/search_page.dart';
 import 'package:jobfinder/View/notification/notification.dart';
 import 'package:jobfinder/View/widgets/headers.dart';
@@ -59,7 +60,7 @@ async {
           //   child: CircularProgressIndicator(),
           //   );
           //  }
-          ///todo circular indicator for all
+
           return
             SafeArea(
               child: Column(
@@ -280,15 +281,20 @@ async {
                                                       borderRadius: BorderRadius
                                                           .circular(50),
                                                     ),
-                                                    child: Text(
-                                                      AppStrings.applynow,
-                                                      textAlign: TextAlign
-                                                          .center,
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 13,
-                                                          fontWeight: FontWeight
-                                                              .w400),
+                                                    child: InkWell(
+                                                      onTap: (){
+                                                        Navigator.push(context, MaterialPageRoute(builder: (context) =>apply_job(value.suggestjobs[index].jobid)));//  job id
+                                                      },
+                                                      child: Text(
+                                                        AppStrings.applynow,
+                                                        textAlign: TextAlign
+                                                            .center,
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 13,
+                                                            fontWeight: FontWeight
+                                                                .w400),
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -349,14 +355,14 @@ async {
                                               child: Container(
                                                 height: 50,
                                                 width: 50,
-                                                child: Image.network('https://scontent.fcai19-4.fna.fbcdn.net/v/t39.30808-6/341641761_2026393727719082_1890208254169215980_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=UjADs0suO50AX9yHMoc&_nc_ht=scontent.fcai19-4.fna&oh=00_AfBWUK_Ku3FuYpjdOgzmuqwfXcCaEJot2-MJkxKGYJKr5Q&oe=646395C3',width: 50,height: 50,),
+                                                child: Image.asset('images/flutter.png',height: 10,),
                                                 decoration: BoxDecoration(
 
                                                     borderRadius: BorderRadius.circular(1),
-                                                    border: Border.all(
-                                                      width: 1,
-                                                      color:  AppTheme.unclickedbuttonColor,
-                                                    )
+                                                  //  border: Border.all(
+                                                     // width: 1,
+                                                    //  color:  AppTheme.unclickedbuttonColor,
+                                                   // )
                                                 ),
                                               ),
                                             ),

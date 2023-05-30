@@ -1,4 +1,4 @@
-const baseUrl = 'http://164.92.246.77/api/';
+const baseUrl = 'http://167.71.79.133/api/';
 const profileinfo = 'user/profile/show/';
 const loginEndPoint = 'auth/login';
 const registerEndPoint = 'auth/register';
@@ -15,3 +15,4 @@ const editprofile = 'user/profile/edit/';
 const addlanguage = 'user/profile/language/';
 const getchat = 'chat';
 const about = 'user/profile/personaldetails/';
+const apply = 'apply';
